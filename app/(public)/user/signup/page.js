@@ -1,6 +1,6 @@
 "use client";
 import {
-  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   setPersistence,
   browserSessionPersistence,
   AuthErrorCodes,
@@ -10,7 +10,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 
-export default function SignInForm() {
+export default function SignUpForm() {
   const [error, setError] = useState("");
   const auth = getAuth();
   const params = useSearchParams();
@@ -26,7 +26,7 @@ export default function SignInForm() {
     const password = e.target["password"].value;
     setPersistence(auth, browserSessionPersistence)
       .then(() => {
-        signInWithEmailAndPassword(auth, email, password)
+        createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             router.push(returnUrl);
           })
@@ -34,8 +34,8 @@ export default function SignInForm() {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.error(errorCode, errorMessage);
-            if (error.code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS){
-              setError("Invalid email or password")
+            if (error.code === AuthErrorCodes.EMAIL_EXISTS){
+              setError("Email already in use")
             }else{
               setError(errorMessage)
             }
@@ -46,13 +46,12 @@ export default function SignInForm() {
       });
   };
 
-
   return (
     <>
       <div className="flex items-center justify-center bg-base-200">
         <div className="card w-96 bg-base-100 shadow-xl">
           <div className="card-body">
-            <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
+            <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
 
             <form className="flex flex-col gap-1 form-control" onSubmit={onSubmit}>
               <label className="input validator w-full">
@@ -100,7 +99,7 @@ export default function SignInForm() {
                 Must be more than 5 characters
               </p>
 
-              <button className="btn btn-primary w-full mt-2">Login</button>
+              <button className="btn btn-primary w-full mt-2">Register</button>
               {error && <div className="alert alert-error shadow-sm">
                 <span>{error}</span>
               </div>}

@@ -5,11 +5,11 @@ import { initializeApp, getApps, getApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD2BcTH1Vqiew81qlJf83lMkqD71TDxon8",
-  authDomain: "frontend-lab-next.firebaseapp.com",
-  projectId: "frontend-lab-next",
-  storageBucket: "frontend-lab-next.firebasestorage.app",
-  messagingSenderId: "444133666138",
-  appId: "1:444133666138:web:892d2da829472e5c691763"
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID
 };
 export const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
