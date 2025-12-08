@@ -5,14 +5,13 @@ import {
   browserSessionPersistence,
   AuthErrorCodes,
 } from "firebase/auth";
-import { getAuth } from "firebase/auth";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import { auth } from "@/app/_lib/firebase";
 
 
 export default function SignInForm() {
   const [error, setError] = useState("");
-  const auth = getAuth();
   const params = useSearchParams();
   const router = useRouter();
   const returnUrl = params.get("returnUrl") ?? "/";
@@ -49,8 +48,8 @@ export default function SignInForm() {
 
   return (
     <>
-      <div className="flex items-center justify-center bg-base-200">
-        <div className="card w-96 bg-base-100 shadow-xl">
+      <div className="flex items-center justify-center bg-base-200 ">
+        <div className="card card-xl bg-base-100 shadow-xl border border-base-300 md:w-md">
           <div className="card-body">
             <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
 
