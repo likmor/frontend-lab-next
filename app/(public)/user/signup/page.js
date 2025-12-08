@@ -11,7 +11,7 @@ import { useSearchParams, redirect } from "next/navigation";
 import { useState } from "react";
 import { Suspense } from "react";
 
-export default function SignUpForm() {
+function SignUpFormInner() {
   const [error, setError] = useState("");
   const params = useSearchParams();
 
@@ -176,6 +176,14 @@ export default function SignUpForm() {
           </div>
         </div>
       </>
+    </Suspense>
+  );
+}
+
+export default function SignUpForm() {
+  return (
+    <Suspense fallback={<LoadingBar />}>
+      <SignUpFormInner />
     </Suspense>
   );
 }
